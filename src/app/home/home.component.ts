@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as c3 from 'c3';
+import {DashboardService} from '../dashboard.service';
 
 @Component({
   selector: 'app-home',
@@ -7,15 +8,13 @@ import * as c3 from 'c3';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public operational: any;
-  public nOperational: any;
+  public data: any;
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-    this.operational = {name: 'operational', count: 10};
-    this.nOperational = {name: 'Non operational', count: 20};
+    this.data = this.dashboardService.getData();
   }
 
 }
