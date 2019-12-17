@@ -1,0 +1,10 @@
+<div class="container p-2">
+  <div class="row">
+    <app-equipment-card class="col-4" [operational]="operational"></app-equipment-card>
+    <div class="col-4"></div>
+    <app-equipment-card class="col-4" [operational]="nOperational"></app-equipment-card>
+  </div>
+  <div class="row">
+    <app-equipment-chart [operational]="operational" [nOperational]="nOperational"></app-equipment-chart>
+  </div>
+</div>
