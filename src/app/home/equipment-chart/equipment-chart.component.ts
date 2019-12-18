@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -6,7 +6,7 @@ import * as c3 from 'c3';
   templateUrl: './equipment-chart.component.html',
   styleUrls: ['./equipment-chart.component.css'],
 })
-export class EquipmentChartComponent implements OnInit, OnChanges, AfterViewInit {
+export class EquipmentChartComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   @Input() operational;
@@ -20,10 +20,10 @@ export class EquipmentChartComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    this.drow();
+    this.draw();
   }
 
-  drow() {
+  draw() {
     console.log(this.operational.count);
     if (this.operational.count && this.nOperational.count) {
       const chart = c3.generate({
@@ -38,8 +38,8 @@ export class EquipmentChartComponent implements OnInit, OnChanges, AfterViewInit
     }
   }
 
-  ngOnChanges(): void {
-    console.log("changed")
-    // this.drow();
+  ngOnChanges(changes: SimpleChanges): void {
+    this.draw();
   }
+
 }
