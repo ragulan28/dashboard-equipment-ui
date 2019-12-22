@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import * as c3 from 'c3';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../dashboard.service';
 import {Data} from '../mode';
 import {EquipmentChartComponent} from './equipment-chart/equipment-chart.component';
@@ -13,6 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public data: Data[];
   public operational = {name: 'operational', count: 0};
   public nOperational = {name: 'Non Operational', count: 0};
+  public chartData: any[];
   private intervalID: any;
   @ViewChild('equipmentChartComponent', {static: false}) child: EquipmentChartComponent;
 
@@ -32,8 +32,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.data = res;
       this.operational.count = this.data.filter(d => d.OperationalStatus === 'Operational').length;
       this.nOperational.count = this.data.filter(d => d.OperationalStatus !== 'Operational').length;
-      console.log([this.operational, this.nOperational]);
+      this.count();
+      console.log(this.chartData);
       this.child.draw();
+    });
+  }
+
+  private count() {
+    this.chartData = [];
+    const tempChartData = this.data.reduce((acc, o) => (acc[o.AssetCategoryID] = (acc[o.AssetCategoryID] || 0) + 1, acc), {});
+    Object.keys(tempChartData).forEach(key => {
+      this.chartData.push([key, tempChartData[key]]);
     });
   }
 

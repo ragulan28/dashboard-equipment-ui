@@ -59,3 +59,8 @@ export interface Data {
   AssetGroupName: string;
   __rowid__: string;
 }
+
+export interface ChartDate {
+  name: string;
+  count: number;
+}

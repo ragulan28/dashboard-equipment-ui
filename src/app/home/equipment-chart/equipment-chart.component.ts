@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -9,8 +9,8 @@ import * as c3 from 'c3';
 export class EquipmentChartComponent implements OnInit, AfterViewInit, OnChanges {
 
 
-  @Input() operational;
-  @Input() nOperational;
+  @Input() chartData;
+  private data: any[];
 
   constructor() {
   }
@@ -20,18 +20,16 @@ export class EquipmentChartComponent implements OnInit, AfterViewInit, OnChanges
   }
 
   ngAfterViewInit(): void {
+
     this.draw();
+
   }
 
   draw() {
-    console.log(this.operational.count);
-    if (this.operational.count && this.nOperational.count) {
+    if (this.chartData) {
       const chart = c3.generate({
         data: {
-          columns: [
-            [this.operational.name, this.operational.count],
-            [this.nOperational.name, this.nOperational.count],
-          ],
+          columns: this.chartData,
           type: 'bar'
         }
       });
