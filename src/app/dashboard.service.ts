@@ -11,7 +11,7 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<Data[]> {
-    return this.http.get<Data[]>('http://ivivaanywhere.ivivacloud.com/api/Asset/Asset/All?apikey=SC:ivivademo:8d756202d6159375&max=100&last=0');
+  getData(last: number): Observable<Data[]> {
+    return this.http.get<Data[]>('http://ivivaanywhere.ivivacloud.com/api/Asset/Asset/All?apikey=SC:ivivademo:8d756202d6159375&max=100&last=' + last);
   }
 }
